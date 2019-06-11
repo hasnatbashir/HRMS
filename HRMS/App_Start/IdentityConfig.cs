@@ -17,7 +17,9 @@ namespace HRMS
         {
             app.CreatePerOwinContext(() => new ApplicationDbContext());
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
-
+            app.CreatePerOwinContext<RoleManager<AppRole>>((options, context) =>
+                new RoleManager<AppRole>(
+                    new RoleStore<AppRole>(context.Get<ApplicationDbContext>())));
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,

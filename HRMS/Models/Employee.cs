@@ -28,6 +28,8 @@ namespace HRMS.Models
         public string ResumeUrl { get; set; }
         public string OfferLetterUrl { get; set; }
         public string JoiningLetterUrl { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         public ICollection<Award> Awards { get; set; }
         public ICollection<Attendance> Attendances { get; set; }

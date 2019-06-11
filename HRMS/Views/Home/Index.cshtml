@@ -1,5 +1,32 @@
-﻿@{
+﻿@model HRMS.ViewModels.LoginViewModel
+@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_HeaderLessLayout.cshtml";
 }
+<link href="~/Content/Site.css" rel="stylesheet" />
+<style>
+    li {
+        list-style-type: none;
+        color: red;
+    }
+</style>
+    <div class="parent" align="center">
+        <h2>Admin Login</h2>
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new {@class = "loginform"}))
+        {
+            @Html.AntiForgeryToken()
+            ;
+            @Html.ValidationSummary(true)
+            ;
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @for = "email" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "email", @placeholder="admin@example.com" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @for = "password" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "password", @placeholder="Password" })
+            </div>
+            <input type="submit" style="width: 150px;" class="btn btn-primary"/>
 
+        }
+    </div>

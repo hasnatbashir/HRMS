@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+.form-control {
+    box-shadow: none;
+}
+.parent {
+    margin-top: 100px;
+}
