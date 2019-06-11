@@ -10,21 +10,16 @@ namespace HRMS.Controllers
     {
         public ActionResult Index()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            
             return View();
         }
 
-        public ActionResult About()
+        [Authorize]
+        public ActionResult TestView()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
