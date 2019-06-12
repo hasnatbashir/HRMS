@@ -9,5 +9,6 @@ namespace HRMS
 {
     public class AppUser : IdentityUser
     {
+        public string Name { get; set; }
     }
 }

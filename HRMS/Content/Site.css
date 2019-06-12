@@ -28,3 +28,19 @@ textarea {
 .parent {
     margin-top: 100px;
 }
+
+.menubutton:focus {
+    background-color: #26292d;
+}
+.menubutton:active {
+    background-color: #26292d;
+}
+
+.gly-rotate-180 {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}

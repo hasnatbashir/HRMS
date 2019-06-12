@@ -35,9 +35,17 @@ namespace HRMS.Migrations
             var roleManager = new RoleManager<IdentityRole>(roleStore);
             var userStore = new UserStore<AppUser>(context);
             var userManager = new UserManager<AppUser>(userStore);
-            var user = new AppUser { UserName = "hasnatbashir900@gmail.com", Email = "hasnatbashir900@gmail.com", EmailConfirmed = true };
+            var user = new AppUser { UserName = "hasnatbashir900@gmail.com",
+                Email = "hasnatbashir900@gmail.com",
+                EmailConfirmed = true,
+                Name = "Hasnat"
+            };
 
-            var useremp = new AppUser { UserName = "hasnatbashir@gmail.com", Email = "hasnatbashir@gmail.com", EmailConfirmed = true };
+            var useremp = new AppUser { UserName = "hasnatbashir@gmail.com",
+                Email = "hasnatbashir@gmail.com",
+                EmailConfirmed = true,
+                Name = "Hasnat Bashir"
+            };
 
             userManager.Create(user, "password");
             userManager.Create(useremp, "password");

@@ -37,7 +37,7 @@ namespace HRMS.Controllers
                     //use the instance that has been created. 
                     authManager.SignIn(
                         new AuthenticationProperties { IsPersistent = false }, ident);
-                    if(User.IsInRole("admin"))
+                    if(userManager.IsInRole(user.Id, "admin"))
                         return Redirect(Url.Action("Index", "Admin"));
                     else
                         return Redirect(Url.Action("Index", "Employee"));
@@ -46,7 +46,7 @@ namespace HRMS.Controllers
             ModelState.AddModelError("", "Invalid username or password");
             return View("Index");
         }
-        [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult LogOff()
         {
             Session.Clear();
