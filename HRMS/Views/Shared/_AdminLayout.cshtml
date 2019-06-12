@@ -14,40 +14,47 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 </head>
 
 <body style="padding-top: 0px; padding-bottom: 0px;">
 
     <div class="d-flex" id="wrapper">
-
         <!-- Sidebar -->
         <div class="bg-dark border-right" id="sidebar-wrapper">
             <div class="sidebar-heading text-light">Admin</div>
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Employees</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Department</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Award</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Expense</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Holiday</a>
-                <a href="#" id="sbdropdowntoggle" class="list-group-item list-group-item-action bg-dark text-light">Attendance
-                    <i style="font-size: 12px; padding-left: 100px;" id="rotglyph" class="fa fa-chevron-down"></i>
-                </a>
-                <div id="sbdropdown" style="display: none;">
-                    <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Attendance</a>
-                    <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Attendance</a>
-                    <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Attendance</a>
-                    <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Attendance</a>
-                </div>
-            </div>
-            </div>
+                @Html.ActionLink("Dashboard", "Index", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+
+                @Html.ActionLink("Employees", "Employees", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+
+                @Html.ActionLink("Departments", "Departments", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+
+                @Html.ActionLink("Awards", "Awards", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+
+                @Html.ActionLink("Expenses", "Expenses", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+
+                @Html.ActionLink("Holidays", "Holidays", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+
+                        <a href="#" id="sbdropdowntoggle" class="list-group-item list-group-item-action bg-dark text-light">
+                            Attendance
+                            <i style="font-size: 12px; padding-left: 100px;" id="rotglyph" class="fa fa-chevron-down"></i>
+                        </a>
+                        <div id="sbdropdown" style="display: none;">
+                            <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Mark Attendance</a>
+                            <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">View Attendance</a>
+                            <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Leave Types</a>
+                        </div>
+                    </div>
+        </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-                <button class="btn btn-primary menubutton" style="background-color: #343A40; border-color: white; box-shadow: none;" id="menu-toggle"><i class="fa fa-bars"></i></button>
+                <button class="btn btn-primary menubutton" style="background-color: #343A40; border-color: white; box-shadow: none;" id="menu-toggle"><i style="font-size: 20px;" class="fa fa-bars"></i></button>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -81,10 +88,8 @@
     <!-- /#wrapper -->
     <!-- Menu Toggle Script -->
 
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    
+@RenderSection("scripts", required: false)
 <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();

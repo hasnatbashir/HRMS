@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
+using HRMS.Models;
 
-namespace HRMS.Models
+namespace HRMS.ViewModels
 {
-    public class Employee
+    public class AddEmployeeViewModel
     {
         [Key]
         public int EmployeeID { get; set; }
 
         [Display(Name = "Picture")]
         [Required(ErrorMessage = "Field Required")]
-        public string ImageUrl { get; set; }
+        public HttpPostedFileBase ImageUrl { get; set; }
 
 
         [Required(ErrorMessage = "Field Required")]
@@ -65,21 +66,18 @@ namespace HRMS.Models
         public string Branch { get; set; }
 
         [Display(Name = "Resume")]
-        public string ResumeUrl { get; set; }
+        public HttpPostedFileBase ResumeUrl { get; set; }
 
         [Display(Name = "Offer Letter")]
-        public string OfferLetterUrl { get; set; }
+        public HttpPostedFileBase OfferLetterUrl { get; set; }
 
         [Display(Name = "Joining Letter")]
-        public string JoiningLetterUrl { get; set; }
+        public HttpPostedFileBase JoiningLetterUrl { get; set; }
 
         [Required(ErrorMessage = "Field Required")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Field Required")]
         public string Password { get; set; }
-
-        public ICollection<Award> Awards { get; set; }
-        public ICollection<Attendance> Attendances { get; set; }
     }
 }

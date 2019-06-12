@@ -17,6 +17,8 @@ namespace HRMS.Controllers
             var ID = User.Identity.GetUserId();
             var Name = HttpContext.GetOwinContext().GetUserManager<AppUserManager>().FindById(ID).Name;
             ViewBag.Name = Name;
+            @ViewBag.Present = 30;
+            @ViewBag.Absent = 5;
             return View();
         }
     }
