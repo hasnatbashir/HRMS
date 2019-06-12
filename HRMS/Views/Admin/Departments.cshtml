@@ -1,27 +1,92 @@
-﻿@model HRMS.Models.Department
+﻿@using System.Activities.Expressions
+@using HRMS.Models
+@model HRMS.ViewModels.DepartmentViewModel
 
 @{
     ViewBag.Title = "Departments";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<h2>Departments <span style="font-size: 14px; color: #A9A9A9;">Departments List</span></h2>
+<a data-toggle="modal" data-target="#exampleModal" href="@Url.Action("AddDepartment", "Admin")" class="btn btn-success"><i class="fa fa-plus"></i> Add a new department</a>
+<div class="card">
+    <div class="card-header"><h6>Employees List</h6></div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Designations</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var dep in ViewBag.Departments)
+            {
 
-<h2>Departments</h2>
+                <tr>
+                    <td>@dep.DepartmentID</td>
+                    <td>@dep.Title</td>
+                    <td>
+                        <ul>
+                            @foreach (var des in dep.Designations)
+                            {
+                                    <li>@des</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditDepartment", "Admin", new {id = dep.DepartmentID})" class="btn btn-warning">Edit</a>
+                    </td>
+                </tr>
 
-<div>
-    <h4>Department</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-    </dl>
+            }
+            </tbody>
+        </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DepartmentID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("AddDepartment", "Admin", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="Title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Designations</label>
+                        <div id="fields">
+                            <input type="text" name="Designations" class="form-control" />
+                        </div>
+                        <button type="button" id="btnAddField" class="btn btn-success"><i class="fa fa-plus"></i> Add another designation</button>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success"> Department</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var $fields = $('#fields');
+        $('#btnAddField').click(function(e) {
+            e.preventDefault();
+            $('<input type="text" name="Designations" class="form-control" /><br/>').appendTo($fields);
+        });
+    });
+
+</script>

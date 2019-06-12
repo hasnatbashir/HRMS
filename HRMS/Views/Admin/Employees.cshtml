@@ -1,16 +1,46 @@
-﻿
+﻿@model List<HRMS.Models.Employee>
 @{
     ViewBag.Title = "Employee";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@ViewBag.message
 <h2>Employees <span style="font-size: 14px; color: #A9A9A9;">Employees List</span></h2>
 <a href="@Url.Action("AddEmployee", "Admin")" class="btn btn-success"><i class="fa fa-plus"></i> Add a new employee</a>
     <div class="card">
         <div class="card-header"><h6>Employees List</h6></div>
         <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Joining Date</th>
+                    <th>Salary</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach (var emp in Model)
+                    {
 
+                        <tr>
+                            <td>@emp.EmployeeID</td>
+                            <td><img src="@emp.ImageUrl" width="80px" height="80px" /></td>
+                            <td>@emp.Name</td>
+                            <td>@emp.Departments.Title</td>
+                            <td>@emp.JoiningDate.Day - @emp.JoiningDate.Month - @emp.JoiningDate.Year</td>
+                            <td>@emp.CurrentSalary</td>
+                            <td>@(emp.Status ? "Inactive" : "Active")</td>
+                            <td>
+                                <a href="@Url.Action("EditEmployee", "Admin", new {id = emp.EmployeeID})" class="btn btn-warning">Edit</a>
+                            </td>
+                        </tr>
 
-
+                    }
+                </tbody>
+            </table>
         </div>
     </div>

@@ -44,6 +44,8 @@ namespace HRMS.Models
         [Required(ErrorMessage = "Field Required")]
         public DateTime JoiningDate { get; set; }
 
+        public bool Status { get; set; }
+
         [Display(Name = "Salary")]
         [Required(ErrorMessage = "Field Required")]
         public int CurrentSalary { get; set; }
@@ -76,7 +78,6 @@ namespace HRMS.Models
         [Required(ErrorMessage = "Field Required")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Field Required")]
         public string Password { get; set; }
 
         public ICollection<Award> Awards { get; set; }

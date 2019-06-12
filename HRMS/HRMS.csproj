@@ -182,6 +182,18 @@
     <Compile Include="Migrations\201906121659505_AddedValidationEmployee.Designer.cs">
       <DependentUpon>201906121659505_AddedValidationEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906121910390_ChangedValidationInEmployee.cs" />
+    <Compile Include="Migrations\201906121910390_ChangedValidationInEmployee.Designer.cs">
+      <DependentUpon>201906121910390_ChangedValidationInEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906122019422_AddedStatusForEmployee.cs" />
+    <Compile Include="Migrations\201906122019422_AddedStatusForEmployee.Designer.cs">
+      <DependentUpon>201906122019422_AddedStatusForEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906122153101_AddedDesignation.cs" />
+    <Compile Include="Migrations\201906122153101_AddedDesignation.Designer.cs">
+      <DependentUpon>201906122153101_AddedDesignation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Award.cs" />
@@ -191,7 +203,8 @@
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\Holiday.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\DepartmentViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +291,11 @@
     <Content Include="Views\Admin\Employees.cshtml" />
     <Content Include="Views\Admin\AddEmployee.cshtml" />
     <Content Include="Views\Admin\Departments.cshtml" />
+    <Content Include="Views\Admin\EditEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\EmployeeDocuments\" />
     <Folder Include="Content\EmployeePictures\" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +315,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906121659505_AddedValidationEmployee.resx">
       <DependentUpon>201906121659505_AddedValidationEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906121910390_ChangedValidationInEmployee.resx">
+      <DependentUpon>201906121910390_ChangedValidationInEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906122019422_AddedStatusForEmployee.resx">
+      <DependentUpon>201906122019422_AddedStatusForEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906122153101_AddedDesignation.resx">
+      <DependentUpon>201906122153101_AddedDesignation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

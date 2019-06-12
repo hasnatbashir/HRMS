@@ -20,6 +20,8 @@ namespace HRMS
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
+
+        public DbSet<Designation> Designations { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Award> Awards { get; set; }

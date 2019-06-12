@@ -1,5 +1,5 @@
-﻿@model HRMS.ViewModels.AddEmployeeViewModel
-
+﻿@model HRMS.ViewModels.EmployeeViewModel
+@* @model HRMS.Models.Employee *@
 @{
     ViewBag.Title = "AddEmployee";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -11,7 +11,7 @@
 </style>
 <h2>AddEmployee</h2>
 
-@using (Html.BeginForm("AddEmployee", "Admin"))
+@using (Html.BeginForm("AddEmployee", "Admin", FormMethod.Post, new{@enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -77,7 +77,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.ResumeUrl, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.ResumeUrl, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                            @Html.TextBoxFor(model => model.ResumeUrl, new { htmlAttributes = new { @class = "form-control" }, @type = "file" })
                             @Html.ValidationMessageFor(model => model.ResumeUrl, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.OfferLetterUrl, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.OfferLetterUrl, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                            @Html.TextBoxFor(model => model.OfferLetterUrl, new { htmlAttributes = new { @class = "form-control" }, @type = "file" })
                             @Html.ValidationMessageFor(model => model.OfferLetterUrl, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.JoiningLetterUrl, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.JoiningLetterUrl, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                            @Html.TextBoxFor(model => model.JoiningLetterUrl, new { htmlAttributes = new { @class = "form-control" }, @type = "file" })
                             @Html.ValidationMessageFor(model => model.JoiningLetterUrl, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -120,7 +120,13 @@
                             @Html.ValidationMessageFor(model => model.JoiningDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @value="True" } })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CurrentSalary, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
@@ -181,7 +187,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>

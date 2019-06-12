@@ -7,7 +7,7 @@ using HRMS.Models;
 
 namespace HRMS.ViewModels
 {
-    public class AddEmployeeViewModel
+    public class EmployeeViewModel
     {
         [Key]
         public int EmployeeID { get; set; }
@@ -44,6 +44,8 @@ namespace HRMS.ViewModels
         [Display(Name = "Joining Date")]
         [Required(ErrorMessage = "Field Required")]
         public DateTime JoiningDate { get; set; }
+
+        public bool Status { get; set; }
 
         [Display(Name = "Salary")]
         [Required(ErrorMessage = "Field Required")]
