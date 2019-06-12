@@ -37,9 +37,14 @@ namespace HRMS.Migrations
             var userManager = new UserManager<AppUser>(userStore);
             var user = new AppUser { UserName = "hasnatbashir900@gmail.com", Email = "hasnatbashir900@gmail.com", EmailConfirmed = true };
 
+            var useremp = new AppUser { UserName = "hasnatbashir@gmail.com", Email = "hasnatbashir@gmail.com", EmailConfirmed = true };
+
             userManager.Create(user, "password");
+            userManager.Create(useremp, "password");
             roleManager.Create(new IdentityRole { Name = "admin" });
+            roleManager.Create(new IdentityRole { Name = "employee" });
             userManager.AddToRole(user.Id, "admin");
+            userManager.AddToRole(useremp.Id, "employee");
 
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using HRMS.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,11 +15,13 @@ namespace HRMS.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {   
+        {
+            LogOff();
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel login)
         {
             if (ModelState.IsValid)
@@ -34,11 +37,21 @@ namespace HRMS.Controllers
                     //use the instance that has been created. 
                     authManager.SignIn(
                         new AuthenticationProperties { IsPersistent = false }, ident);
-                    return Redirect(Url.Action("Index", "Admin"));
+                    if(User.IsInRole("admin"))
+                        return Redirect(Url.Action("Index", "Admin"));
+                    else
+                        return Redirect(Url.Action("Index", "Employee"));
                 }
             }
             ModelState.AddModelError("", "Invalid username or password");
             return View("Index");
+        }
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
         [Authorize]
         public ActionResult TestView()
