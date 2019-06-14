@@ -32,11 +32,11 @@
 
                 @Html.ActionLink("Departments", "Departments", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
 
-                @Html.ActionLink("Awards", "Awards", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
-
-                @Html.ActionLink("Expenses", "Expenses", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
-
-                @Html.ActionLink("Holidays", "Holidays", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" })
+                @* @Html.ActionLink("Awards", "Awards", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" }) *@
+                @* *@
+                @* @Html.ActionLink("Expenses", "Expenses", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" }) *@
+                @* *@
+                @* @Html.ActionLink("Holidays", "Holidays", "Admin", new { area = "" }, new { @class = "list-group-item list-group-item-action bg-dark text-light" }) *@
 
                         <a href="#" id="sbdropdowntoggle" class="list-group-item list-group-item-action bg-dark text-light">
                             Attendance
@@ -45,7 +45,6 @@
                         <div id="sbdropdown" style="display: none;">
                             <a href="@Url.Action("Attendance", "Admin")" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Mark Attendance</a>
                             <a href="@Url.Action("ViewAttendance", "Admin")" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">View Attendance</a>
-                            <a href="#" style="padding-left: 40px;background-color: #25292d !important;" class="list-group-item list-group-item-action bg-dark text-light">Leave Types</a>
                         </div>
                     </div>
         </div>
@@ -64,12 +63,9 @@
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
+                                Settings
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
                                 @Html.ActionLink("Logout", "LogOff", "Home", new { area = "" }, new { @class = "dropdown-item" })
 
                             </div>

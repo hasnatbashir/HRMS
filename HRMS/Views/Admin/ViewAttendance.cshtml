@@ -1,0 +1,52 @@
+﻿@model List<HRMS.Models.Attendance>
+@{
+    ViewBag.Title = "View Attendance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Attendance <span style="font-size: 14px; color: #A9A9A9;">Mark Attendance</span></h2>
+    <br />
+    <div class="card">
+        <div class="card-header"><h6>Employees List</h6></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0;}
+                    @foreach (var attendance in ViewBag.Attendances)
+                    {
+                        <input type="hidden" name="[@i].ID" value="@attendance.ID" />
+                        <input type="hidden" name="[@i].EmployeeID" value="@attendance.Employees.EmployeeID" />
+                        <input type="hidden" id="dates" name="[@i].Date" value="@attendance.Date.Year-@(attendance.Date.Month.ToString().Length < 2 ? attendance.Date.Month.ToString().PadLeft(2, '0') : attendance.Date.Month.ToString())-@(attendance.Date.Day.ToString().Length < 2 ? attendance.Date.Day.ToString().PadLeft(2, '0') : attendance.Date.Day.ToString())" />
+                        <tr>
+                            <td>@attendance.Employees.EmployeeID</td>
+                            <td><img src="~/Content/EmployeePictures/@attendance.Employees.ImageUrl" width="80px" height="80px" /></td>
+                            <td>@attendance.Employees.Name</td>
+                            <td>
+                                @attendance.Employees.Departments.Title
+                            </td>
+                            <td style="text-align: center;background-color: @(attendance.Status ? "Green" : "Red"); color: white;" >@(attendance.Status ? "Present" : "Absent")</td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script>
+    function onDateChanged(value) {
+        window.location.href = "/admin/attendance/" + value;
+    }
+    function onTodayClicked() {
+        var current_datetime = new Date();
+        window.location.href = "/admin/attendance/" + current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear();
+    }
+</script>

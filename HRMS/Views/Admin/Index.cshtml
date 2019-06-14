@@ -3,12 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<link href="~/Content/Calender.css" rel="stylesheet" />
-<script>
-    var present = @ViewBag.Present;
-    var absent = @ViewBag.Absent;
-</script>
-<script src="~/Scripts/Calender.js"></script>
 <h2>Dashboard <span style="font-size: 14px; color: #A9A9A9;">Reports & Statistics</span></h2>
 <div class="row">
     <div style="margin: 0px 20px 0px 20px" class="col-md-3 card bg-info text-light">
@@ -18,8 +12,8 @@
                     <i style="padding-top: 10px;font-size: 80px;" class="fa fa-users"></i>
                 </div>
                 <div align="right" style="padding-top: 20px;" class="col-md-6 text-right">
-                    <p class="announcement-heading">1</p>
-                    <p class="announcement-text">Users</p>
+                    <p class="announcement-heading">@ViewBag.Employees</p>
+                    <p class="announcement-text">Employees</p>
                 </div>
             </div>
         </div>
@@ -31,7 +25,7 @@
                     <i style="padding-top: 10px;font-size: 80px;" class="fa fa-building"></i>
                 </div>
                 <div align="right" style="padding-top: 20px;" class="col-md-6 text-right">
-                    <p class="announcement-heading">1</p>
+                    <p class="announcement-heading">@ViewBag.Departments</p>
                     <p class="announcement-text">Departments</p>
                 </div>
             </div>
@@ -44,39 +38,22 @@
                     <i style="padding-top: 10px;font-size: 80px;" class="fa fa-trophy"></i>
                 </div>
                 <div align="right" style="padding-top: 20px;" class="col-md-6 text-right">
-                    <p class="announcement-heading">1</p>
+                    <p class="announcement-heading">@ViewBag.Awards</p>
                     <p class="announcement-text">Awards</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container" id="main">
-    <div class="card">
-        <div class="card-header"><h4>Attendance</h4></div>
-        <div class="card-body">
-            <p class="text-center">
-                <a id="left" href="#">
-                    <i class="fa fa-chevron-left"> </i>
-                </a>
-                <span>&nbsp;</span>
-                <span id="month"> </span>
-                <span>&nbsp;</span><span id="year"> </span>
-                <span>&nbsp;</span><a id="right" href="#">
-                    <i class="fa fa-chevron-right"> </i>
-                </a>
-            </p>
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <table class="table"></table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header"><h4>Attendance</h4></div>
-        <div class="card-body">
-
-        </div>
+<br/>
+<div class="card">
+    <div class="card-header"><h4>Absent Employees Today</h4></div>
+    <div class="card-body">
+        <ul class="list-group">
+            @foreach (var attendance in ViewBag.Attendance)
+            {
+                <li style="margin-bottom: 10px;" class="list-group-item"><span>@attendance.Employees.EmployeeID</span> : @attendance.Employees.Name</li>
+            }
+        </ul>
     </div>
 </div>

@@ -20,6 +20,14 @@ namespace HRMS.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            var attendances = db.Attendances.Include("Employees").Where(a => a.Date.Day == DateTime.Now.Day
+                                                                                                              && a.Date.Month == DateTime.Now.Month
+                                                                                                              && a.Date.Year == DateTime.Now.Year
+                                                                                                              && a.Status == false).ToList();
+            ViewBag.attendance = attendances;
+            ViewBag.Employees = db.Employees.ToList().Count;
+            ViewBag.Departments = db.Departments.ToList().Count;
+            ViewBag.Awards = db.Awards.ToList().Count;
             return View();
         }
 
@@ -522,5 +530,34 @@ namespace HRMS.Controllers
             return View("Attendance");
         }
 
+        public ActionResult ViewAttendance(DateTime? id)
+        {
+            if (id == null)
+            {
+                id = DateTime.Now;
+            }
+            var attendances = db.Attendances.Include("Employees").Include("Employees.Departments").Where(a => a.Date.Day == id.Value.Day
+                                                                                                              && a.Date.Month == id.Value.Month
+                                                                                                              && a.Date.Year == id.Value.Year).ToList();
+
+            if (attendances == null || attendances.Count == 0)
+            {
+                var employees = db.Employees.Include("Departments").ToList();
+                attendances = new List<Attendance>();
+                foreach (var emp in employees)
+                {
+                    Attendance a = new Attendance()
+                    {
+                        Date = id.GetValueOrDefault(),
+                        Employees = emp,
+                        Status = false
+                    };
+                    attendances.Add(a);
+                }
+            }
+            ViewBag.Attendances = attendances;
+            return View();
+            return View();
+        }
     }
 }
