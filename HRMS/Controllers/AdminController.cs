@@ -449,7 +449,9 @@ namespace HRMS.Controllers
             {
                 id = DateTime.Now;
             }
-            var attendances = db.Attendances.Include("Employees").Include("Employees.Departments").Where(a => a.Date == id).ToList();
+            var attendances = db.Attendances.Include("Employees").Include("Employees.Departments").Where(a => a.Date.Day == id.Value.Day 
+                                                                                                              && a.Date.Month == id.Value.Month
+                                                                                                              && a.Date.Year == id.Value.Year).ToList();
 
             if (attendances == null || attendances.Count == 0)
             {
@@ -481,7 +483,7 @@ namespace HRMS.Controllers
                     attendance.Employees = db.Employees.Find(attendance.EmployeeID);
                 }
 
-                var check = db.Attendances.SingleOrDefault(a => a.Date == firstItem.Date);
+                var check = db.Attendances.FirstOrDefault(a => a.Date == firstItem.Date);
                 if (check == null)
                 {
                     db.Attendances.AddRange(attendances);
@@ -491,13 +493,32 @@ namespace HRMS.Controllers
                 {
                     foreach (var attendance in attendances)
                     {
-                        db.Entry(attendance).State = EntityState.Modified;
+                        var att = db.Attendances.SingleOrDefault(a => a.ID == attendance.ID);
+                        att.Status = attendance.Status;
                         db.SaveChanges();
                     }
+
                 }
             }
-            var attendancesv = db.Attendances.Include("Employees").Include("Employees.Departments").ToList();
-            ViewBag.Attendances = attendancesv;
+            var date = attendances[0].Date;
+            var attends = db.Attendances.Include("Employees").Include("Employees.Departments").Where(a => a.Date == date).ToList();
+
+            if (attends == null || attends.Count == 0)
+            {
+                var employees = db.Employees.Include("Departments").ToList();
+                attends = new List<Attendance>();
+                foreach (var emp in employees)
+                {
+                    Attendance a = new Attendance()
+                    {
+                        Date = date,
+                        Employees = emp,
+                        Status = false
+                    };
+                    attendances.Add(a);
+                }
+            }
+            ViewBag.Attendances = attends;
             return View("Attendance");
         }
 
