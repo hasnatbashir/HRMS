@@ -194,6 +194,14 @@
     <Compile Include="Migrations\201906122153101_AddedDesignation.Designer.cs">
       <DependentUpon>201906122153101_AddedDesignation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906130631216_ChangedAttendanceStatusToBool.cs" />
+    <Compile Include="Migrations\201906130631216_ChangedAttendanceStatusToBool.Designer.cs">
+      <DependentUpon>201906130631216_ChangedAttendanceStatusToBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906130751163_ChangedAttendanceKey.cs" />
+    <Compile Include="Migrations\201906130751163_ChangedAttendanceKey.Designer.cs">
+      <DependentUpon>201906130751163_ChangedAttendanceKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Award.cs" />
@@ -292,6 +300,8 @@
     <Content Include="Views\Admin\AddEmployee.cshtml" />
     <Content Include="Views\Admin\Departments.cshtml" />
     <Content Include="Views\Admin\EditEmployee.cshtml" />
+    <Content Include="Views\Admin\EditDepartment.cshtml" />
+    <Content Include="Views\Admin\Attendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +334,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906122153101_AddedDesignation.resx">
       <DependentUpon>201906122153101_AddedDesignation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906130631216_ChangedAttendanceStatusToBool.resx">
+      <DependentUpon>201906130631216_ChangedAttendanceStatusToBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906130751163_ChangedAttendanceKey.resx">
+      <DependentUpon>201906130751163_ChangedAttendanceKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

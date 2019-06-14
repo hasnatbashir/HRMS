@@ -23,23 +23,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach (var emp in Model)
-                    {
+                @{
+                    int i = 0;
+                }
+                @foreach (var emp in Model)
+                {
 
-                        <tr>
-                            <td>@emp.EmployeeID</td>
-                            <td><img src="@emp.ImageUrl" width="80px" height="80px" /></td>
-                            <td>@emp.Name</td>
-                            <td>@emp.Departments.Title</td>
-                            <td>@emp.JoiningDate.Day - @emp.JoiningDate.Month - @emp.JoiningDate.Year</td>
-                            <td>@emp.CurrentSalary</td>
-                            <td>@(emp.Status ? "Inactive" : "Active")</td>
-                            <td>
-                                <a href="@Url.Action("EditEmployee", "Admin", new {id = emp.EmployeeID})" class="btn btn-warning">Edit</a>
-                            </td>
-                        </tr>
-
-                    }
+                    <tr>
+                        <td>@emp.EmployeeID</td>
+                        <td><img src="~/Content/EmployeePictures/@emp.ImageUrl" width="80px" height="80px"/></td>
+                        <td>@emp.Name</td>
+                        <td>
+                            @emp.Departments.Title
+                            <ul>
+                                @foreach (var desig in ViewBag.Designations[i].Designations)
+                                {
+                                    <li>@desig</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>@emp.JoiningDate.Day - @emp.JoiningDate.Month - @emp.JoiningDate.Year</td>
+                        <td>@emp.CurrentSalary</td>
+                        <td>@(emp.Status ? "Active" : "Inactive")</td>
+                        <td>
+                            <a href="@Url.Action("EditEmployee", "Admin", new {id = emp.EmployeeID})" class="btn btn-warning">Edit</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
                 </tbody>
             </table>
         </div>

@@ -8,10 +8,11 @@ namespace HRMS.Models
     public class Attendance
     {
         [Key]
+        public int ID { get; set; }
         public DateTime Date { get; set; }
         public int EmployeeID { get; set; }
         public Employee Employees { get; set; }
-        public string Status { get; set; }
+        public bool Status { get; set; }
 
         
     }

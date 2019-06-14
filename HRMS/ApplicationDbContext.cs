@@ -25,7 +25,7 @@ namespace HRMS
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Award> Awards { get; set; }
-        public DbSet<Holiday> Holidays{ get; set; } 
+        public DbSet<Holiday> Holidays{ get; set; }
 
     }
 }

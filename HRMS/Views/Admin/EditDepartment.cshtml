@@ -1,0 +1,59 @@
+﻿@model HRMS.ViewModels.DepartmentViewModel
+
+@{
+    ViewBag.Title = "EditDepartment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EditDepartment</h2>
+
+@using (Html.BeginForm("EditDepartment", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Edit Department</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Designations, htmlAttributes: new {@class = "control-label col-md-2"})
+            @foreach (var designations in Model.Designations)
+            {
+                <div id="fields">
+                    <div class="col-md-10">
+                        <input type="text" name="Designations" value="@designations" class="form-control"/>
+                        @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+            }
+            <br/>
+            <button type="button" id="btnAddField" class="btn btn-success"><i class="fa fa-plus"></i> Add another designation</button>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var $fields = $('#fields');
+        $('#btnAddField').click(function(e) {
+            e.preventDefault();
+            $('<br/><div class="col-md-10"><input type="text" name="Designations" class="form-control" /></div><br/>').appendTo($fields);
+        });
+    });
+
+</script>

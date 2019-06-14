@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HRMS.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -25,6 +26,27 @@ namespace HRMS.Controllers
         public ActionResult Employees()
         {
             var employees = db.Employees.Include("Departments").ToList();
+            List<DepartmentViewModel> depvmList = new List<DepartmentViewModel>();
+            foreach (var dep in employees)
+            {
+
+                var designations = db.Designations.Where(d => d.DepartmentID == dep.Departments.DepartmentID).ToArray();
+                List<string> desList = new List<string>();
+                foreach (var des in designations)
+                {
+
+                    desList.Add(des.DesignationTitle);
+
+                }
+                DepartmentViewModel depvm = new DepartmentViewModel()
+                {
+                    DepartmentID = dep.DepartmentID,
+                    Title = dep.Departments.Title,
+                    Designations = desList.ToArray()
+                };
+                depvmList.Add(depvm);
+            }
+            ViewBag.Designations = depvmList;
             return View(employees);
         }
 
@@ -89,7 +111,8 @@ namespace HRMS.Controllers
                     Branch = editEmployeeViewModel.Branch,
                     Departments = department,
                     Phone = editEmployeeViewModel.Phone,
-                    ImageUrl = editEmployeeViewModel.ImageUrl.FileName
+                    ImageUrl = editEmployeeViewModel.ImageUrl.FileName,
+                    Status = editEmployeeViewModel.Status
                 };
                 if (editEmployeeViewModel.ResumeUrl != null)
                 {
@@ -128,6 +151,7 @@ namespace HRMS.Controllers
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 userManager.Update(user);
+                db.SaveChanges();
                 return Redirect(Url.Action("Employees", "Admin"));
             }
             var departments = db.Departments.ToList();
@@ -342,7 +366,140 @@ namespace HRMS.Controllers
 
         public ActionResult EditDepartment(int id)
         {
-            throw new NotImplementedException();
+            var department = db.Departments.Find(id);
+            List<DepartmentViewModel> depvmList = new List<DepartmentViewModel>();
+            var designations = db.Designations.Where(d => d.DepartmentID == id).ToArray();
+            List<string> desList = new List<string>();
+            foreach (var des in designations)
+            {
+
+                desList.Add(des.DesignationTitle);
+
+            }
+
+            DepartmentViewModel depvm = new DepartmentViewModel()
+            {
+                DepartmentID = department.DepartmentID,
+                Title = department.Title,
+                Designations = desList.ToArray()
+            };
+
+            return View(depvm);
         }
+
+        [HttpPost]
+        public ActionResult EditDepartment(DepartmentViewModel departmentViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Department dep = new Department()
+                {
+                    DepartmentID = departmentViewModel.DepartmentID,
+                    Title = departmentViewModel.Title,
+                };
+                db.Entry(dep).State = EntityState.Modified;
+                db.SaveChanges();
+                List<Designation> designationList = new List<Designation>();
+                foreach (var designation in departmentViewModel.Designations)
+                {
+                    Designation des = new Designation()
+                    {
+                        Departments = dep,
+                        DesignationTitle = designation
+                    };
+                    designationList.Add(des);
+                }
+
+                db.Designations.RemoveRange(db.Designations.Where(des => des.DepartmentID == dep.DepartmentID));
+                db.SaveChanges();
+                db.Designations.AddRange(designationList);
+                db.SaveChanges();
+                return Redirect(Url.Action("Departments"));
+            }
+
+            var departments = db.Departments.ToList();
+            List<DepartmentViewModel> depvmList = new List<DepartmentViewModel>();
+            foreach (var dep in departments)
+            {
+
+                var designations = db.Designations.Where(d => d.DepartmentID == dep.DepartmentID).ToArray();
+                List<string> desList = new List<string>();
+                foreach (var des in designations)
+                {
+
+                    desList.Add(des.DesignationTitle);
+
+                }
+                DepartmentViewModel depVM = new DepartmentViewModel()
+                {
+                    DepartmentID = dep.DepartmentID,
+                    Title = dep.Title,
+                    Designations = desList.ToArray()
+                };
+                depvmList.Add(depVM);
+            }
+
+            ViewBag.Departments = depvmList;
+            return View("EditDepartment");
+        }
+
+        public ActionResult Attendance(DateTime? id)
+        {
+            if (id == null)
+            {
+                id = DateTime.Now;
+            }
+            var attendances = db.Attendances.Include("Employees").Include("Employees.Departments").Where(a => a.Date == id).ToList();
+
+            if (attendances == null || attendances.Count == 0)
+            {
+                var employees = db.Employees.Include("Departments").ToList();
+                attendances = new List<Attendance>();
+                foreach (var emp in employees)
+                {
+                    Attendance a = new Attendance()
+                    {
+                        Date = id.GetValueOrDefault(),
+                        Employees = emp,
+                        Status = false
+                    };
+                    attendances.Add(a);
+                }
+            }
+            ViewBag.Attendances = attendances;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MarkAttendance(List<Attendance> attendances)
+        {
+            if (ModelState.IsValid)
+            {
+                var firstItem = attendances[0];
+                foreach (var attendance in attendances)
+                {
+                    attendance.Employees = db.Employees.Find(attendance.EmployeeID);
+                }
+
+                var check = db.Attendances.SingleOrDefault(a => a.Date == firstItem.Date);
+                if (check == null)
+                {
+                    db.Attendances.AddRange(attendances);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    foreach (var attendance in attendances)
+                    {
+                        db.Entry(attendance).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            var attendancesv = db.Attendances.Include("Employees").Include("Employees.Departments").ToList();
+            ViewBag.Attendances = attendancesv;
+            return View("Attendance");
+        }
+
     }
 }
